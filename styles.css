@@ -1,0 +1,148 @@
+html, body, .store {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.upper{
+    background-color: #ededed;
+    width: 100vw;
+}
+
+
+.store {
+  display: flex;
+  flex-direction: row;
+  background-color: #ededed;
+}
+
+.store__stock {
+  width: 50%;
+  height: 100%;
+  background-color: #cc0001;
+  border-radius: 50px;
+  overflow: auto;
+}
+
+.store__order {
+   width: 50%;
+  height: 100%;
+  background-color: #ffc20f;
+  border-radius: 50px;
+}
+
+.store__order > nav {
+    
+}
+
+/* PRODUCT CARD STYLES */
+.items {
+   
+}
+
+.card {
+    border-radius: 21px;
+    border: 2px solid black;
+    background: #ff872f;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow:  5px 5px 10px #414141,
+             -5px -5px 10px #444444;
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card-img{
+    width: 80%;
+}
+
+.card-title {
+    text-align: center;
+}
+
+.card-title:first-letter {
+    text-transform: uppercase;
+}
+
+.card-input {
+    border: 1px solid black;
+    margin: 3px 0 7px 0;
+}
+
+input.card-input, textarea {
+    background: #ff872f;
+}
+
+.btn {
+    border: 1px solid white;
+    border-radius: 10%;
+    padding: 3px;
+    background-color: rgb(81, 81, 252);
+    color: white;
+}
+
+
+.store__order-wrap {
+    /* border: 1px solid rgb(12, 12, 12); */
+}
+
+
+
+.orders {
+    border-bottom: 1px solid rgb(6, 60, 238);
+}
+
+h3:first-letter {
+    text-transform: uppercase;
+}
+
+side > h3 {
+    font-size: 20px;
+    font-weight: 800
+
+}
+
+
+
+
+
+
+@media screen and (max-width: 768px) {
+    .store {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .store__stock {
+
+        width: 100%;
+     
+        background-color: #cc0001;
+      
+        overflow: auto;
+    }
+      
+    .store__order {
+        width: 100%;
+        background-color: #ffc20f;
+    }
+}
+
+
+@media screen and (max-width: 700px) {
+    .store__order-wrap {
+        justify-content: center;
+    }
+
+    .order-title > h3 {
+        font-size: 15px;
+    }
+}
+

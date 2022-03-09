@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STORE</title>
+
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="upper py-5 pl-8">
+      <a class="display flex" href="index.html">
+        <img
+          src="https://www.alternova.co/wp-content/uploads/2021/03/cropped-logo-Alternova.png"
+          alt="Alternova image"
+          width="200"
+          height="24"
+        />
+        Shop
+      </a>
+    </div>
+    <main class="store">
+      <section
+        class="store__stock display flex flex-wrap justify-center"
+      ></section>
+      <section class="store__order p-8">
+        <div class="store__order-wrap">
+          <side class="order-title display flex justify-between">
+            <h3>Producto</h3>
+            <h3>Cantidad</h3>
+            <h3>Precio/U</h3>
+            <h3>Total</h3>
+          </side>
+          <div class="products display flex-col justify-between"></div>
+          <div class="display flex justify-between mt-16">
+            <h3>Precio total de la orden:</h3>
+            <button
+              class="border-solid border-2 border-black bg-blue-300 hover:bg-blue-700 rounded-lg px-3"
+            >
+              Crear orden
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
