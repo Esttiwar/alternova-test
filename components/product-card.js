@@ -1,6 +1,14 @@
+const IMAGES = [
+  "https://tiendatellevo.com/wp-content/uploads/2021/05/U5d202acd9077442e8130ad130e071e3cv.jpg",
+  "https://www.comedera.com/wp-content/uploads/2019/11/arroz-blanco-cocido-500x375.jpg",
+  "https://larebajavirtual.com/images/productos/sii/F/300x300/papa_margarita_limon-59097-1567544565.png",
+  "https://static.diariovasco.com/www/multimedia/201906/03/media/cortadas/carne-roja-kS1C-R5uqUSGFlSqj84mn1I9bQuN-624x385@Diario%20Vasco.jpg"
+]
+
 export default function ProductCard(productInfo, imageIndex) {
   this.product = {...productInfo}
   this.selectedStock = this.product.stock > 0 ? 1 : 0
+
 
   this.setStock = (e) => {
     this.selectedStock = e.target.value
@@ -59,7 +67,7 @@ export default function ProductCard(productInfo, imageIndex) {
     this.$image = document.createElement("img");
     this.$image.style = "height:12rem";
     this.$image.className = "card-img";
-    this.$image.src = `/images/img${imageIndex + 1}.png`;
+    this.$image.src = `images/img${imageIndex + 1}.png`;
 
     this.$cardBody = document.createElement("div");
     this.$cardBody.className = "card-body";
