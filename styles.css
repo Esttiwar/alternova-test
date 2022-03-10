@@ -1,3 +1,8 @@
+:root {
+    --stock-background-color: lightblue;
+    --order-background-color: lightgrey;
+}
+
 html, body, .store {
   margin: 0;
   padding: 0;
@@ -13,37 +18,36 @@ html, body, .store {
 
 .store {
   display: flex;
-  flex-direction: row;
-  background-color: #ededed;
+  background-color: #3b3b3b;
 }
 
 .store__stock {
-  width: 50%;
-  height: 100%;
-  background-color: #cc0001;
+  flex: 1;
+  box-sizing: border-box;
+  background-color: var(--stock-background-color);
   border-radius: 50px;
   overflow: auto;
 }
 
 .store__order {
-   width: 50%;
-  height: 100%;
-  background-color: #ffc20f;
+  flex: 1;
+  box-sizing: border-box;
+  background-color: var(--order-background-color);
   border-radius: 50px;
 }
 
-.store__order > nav {
-    
+.products {
+    overflow-y: auto;
 }
 
+
 /* PRODUCT CARD STYLES */
-.items {
-   
-}
+
 
 .card {
     border-radius: 21px;
     border: 2px solid black;
+    box-sizing: border-box;
     background: #ff872f;
     padding-top: 20px;
     display: flex;
@@ -57,6 +61,7 @@ html, body, .store {
     display: flex;
     align-items: center;
     flex-direction: column;
+    box-sizing: border-box;
 }
 
 .card-img{
@@ -79,6 +84,9 @@ html, body, .store {
 input.card-input, textarea {
     background: #ff872f;
 }
+input:disabled {
+    border-color: gray;
+}
 
 .btn {
     border: 1px solid white;
@@ -87,10 +95,11 @@ input.card-input, textarea {
     background-color: rgb(81, 81, 252);
     color: white;
 }
-
-
-.store__order-wrap {
-    /* border: 1px solid rgb(12, 12, 12); */
+.btn:disabled {
+    background-color: gray;
+}
+.btn:disabled:hover {
+    cursor: not-allowed;
 }
 
 
@@ -109,6 +118,11 @@ side > h3 {
 
 }
 
+.crear-orden:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
 
 
 
@@ -116,22 +130,16 @@ side > h3 {
 
 @media screen and (max-width: 768px) {
     .store {
-        display: flex;
         flex-direction: column;
     }
 
     .store__stock {
-
-        width: 100%;
-     
-        background-color: #cc0001;
-      
+        background-color: var(--stock-background-color);
         overflow: auto;
     }
-      
+
     .store__order {
-        width: 100%;
-        background-color: #ffc20f;
+        background-color: var(--order-background-color);
     }
 }
 
@@ -146,3 +154,14 @@ side > h3 {
     }
 }
 
+@media screen and (max-width: 425px) {
+    .factura {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .crear-orden {
+        margin-top: 30px;
+    }
+
+}

@@ -1,84 +1,106 @@
 export default function ProductCard(productInfo, imageIndex) {
   this.product = {...productInfo}
-  this.selectedStock = 0
+  this.selectedStock = this.product.stock > 0 ? 1 : 0
 
-  this.setStock = (e,stockDefault) => {
-    return this.selectedStock = e.target.value
-    stockDefault -= this.selectedStock
-    console.log(this.selectedStock)
-    console.log(stockDefault)
+  this.setStock = (e) => {
+    this.selectedStock = e.target.value
+
+    this.update()
   }
 
-  this.productToCart = () => {
+  this.calculateNewStock = () => {
+    if (this.product.stock >= this.selectedStock) {
+      this.product.stock -= this.selectedStock
+      this.selectedStock = this.product.stock === 0 ? 0 : 1
 
-    console.log(typeof this.product.name)
-    
-    const $containerProducts = document.querySelector(".products")
+      this.update()
+    }
+  }
 
-    const $orders = document.createElement("div")
-    $orders.className = "orders display flex justify-between py-3 my-6"
 
-    const $product = document.createElement("h3")
-    $product.textContent = this.product.name.slice(0, 8);
+  this.addToCart = () => {
+    if (this.product.stock >= this.selectedStock) {
+      const bc = new BroadcastChannel('addProduct')
 
-    const $quantity = document.createElement("h3")
-    $quantity.textContent = this.product.unit_price
+      bc.postMessage({
+        name: this.product.name,
+        quantity: Number(this.selectedStock),
+        price: this.product.unit_price
+      })
 
-    const $unitPrice = document.createElement("h3")
-    $unitPrice.textContent = this.product.unit_price;
+    } else {
+      alert('No puede agregar ...')
+    }
+    this.calculateNewStock()
+  }
 
-    const $totalPrice = document.createElement("h3")
-    $totalPrice.textContent = this.product.unit_price;
+  this.update = () => {
+    this.$cardStock.textContent = this.product.stock ? `Stock: ${this.product.stock}`: "No hay stock";
+    this.$cardButton.disabled = this.product.stock === 0 || Number(this.selectedStock) === 0;
+    this.$cardInput.disabled = this.product.stock === 0;
+    this.$cardInput.value = this.selectedStock;
+    this.$cardInput.max = this.product.stock;
 
-    $orders.append($product, $quantity, $unitPrice, $totalPrice)
-
-    $containerProducts.appendChild($orders)
-
+    this.$cardBody.append(
+      this.$cardTitle,
+      this.$cardInput,
+      this.$cardStock,
+      this.$cardPrice,
+      this.$cardButton
+    );
   }
 
   this.render = () => {
-    const $stockContainer = document.querySelector(".store__stock")
-    const $containerCard = document.createElement("div");
-    $containerCard.className = "card mt-8 mx-8";
-    $containerCard.style = "width:250px; height:370px";
+    this.$stockContainer = document.querySelector(".store__stock")
+    this.$containerCard = document.createElement("div");
+    this.$containerCard.className = "card mt-8 mx-8";
+    this.$containerCard.style = "width:250px; height:370px";
 
-    const $image = document.createElement("img");
-    $image.style = "height:12rem";
-    $image.className = "card-img";
-    $image.src = `../images/img${imageIndex + 1}.png`;
+    this.$image = document.createElement("img");
+    this.$image.style = "height:12rem";
+    this.$image.className = "card-img";
+    this.$image.src = `/images/img${imageIndex + 1}.png`;
 
-    const $cardBody = document.createElement("div");
-    $cardBody.className = "card-body";
+    this.$cardBody = document.createElement("div");
+    this.$cardBody.className = "card-body";
 
-    const $cardTitle = document.createElement("h5");
-    $cardTitle.className = "card-title";
-    $cardTitle.textContent = this.product.name;
+    this.$cardTitle = document.createElement("h5");
+    this.$cardTitle.className = "card-title";
+    this.$cardTitle.textContent = this.product.name;
 
-    const $cardStock = document.createElement("h5");
-    $cardStock.className = "card-stock";
-    $cardStock.textContent = this.product.stock ? `Stock: ${this.product.stock}`: "No hay stock";
+    this.$cardStock = document.createElement("h5");
+    this.$cardStock.className = "card-stock";
+    this.$cardStock.textContent = this.product.stock ? `Stock: ${this.product.stock}`: "No hay stock";
 
-    const $cardPrice = document.createElement("h5");
-    $cardPrice.className = "card-price";
-    $cardPrice.textContent = `Precio: ${this.product.unit_price}`
+    this.$cardPrice = document.createElement("h5");
+    this.$cardPrice.className = "card-price";
+    this.$cardPrice.textContent = `Precio: ${this.product.unit_price}`
 
-    const $cardInput = document.createElement("input");
-    $cardInput.style = "width:55px";
-    $cardInput.className = "card-input"
-    $cardInput.setAttribute("type","number")
-    $cardInput.min = 0
-    $cardInput.max = `${this.product.stock}`
-    $cardInput.addEventListener("change", this.setStock)
+    this.$cardInput = document.createElement("input");
+    this.$cardInput.disabled = this.product.stock === 0;
+    this.$cardInput.style = "width:55px";
+    this.$cardInput.className = "card-input"
+    this.$cardInput.setAttribute("type","number")
+    this.$cardInput.min = 0
+    this.$cardInput.max = `${this.product.stock}`
+    this.$cardInput.value = this.selectedStock
+    this.$cardInput.addEventListener("change", this.setStock)
 
-    const $cardButton = document.createElement("button");
-    $cardButton.className = "btn";
-    $cardButton.addEventListener("click", this.productToCart)
-    // $cardButton.setAttribute("href","#");
-    $cardButton.innerHTML = "Add to cart";
 
-    $cardBody.append($cardTitle, $cardInput, $cardStock, $cardPrice, $cardButton);
-    $containerCard.append($image, $cardBody);
+    this.$cardButton = document.createElement("button");
+    this.$cardButton.className = "btn";
+    this.$cardButton.disabled = this.product.stock === 0;
+    this.$cardButton.addEventListener("click", this.addToCart)
+    this.$cardButton.innerHTML = "Add to cart";
 
-    $stockContainer.appendChild($containerCard)
+    this.$cardBody.append(
+      this.$cardTitle,
+      this.$cardInput,
+      this.$cardStock,
+      this.$cardPrice,
+      this.$cardButton
+    );
+    this.$containerCard.append(this.$image, this.$cardBody);
+    this.$stockContainer.appendChild(this.$containerCard)
   }
 }
